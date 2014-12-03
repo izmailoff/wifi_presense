@@ -15,7 +15,7 @@ object EventMessages {
 
   case class ClientPacket(curTimeMillis: Long, clientAddress: String, signalStrength: List[Int])
 
-  object ClientPacket {
+  object ClientPacketHelper {
     val separator = Pattern.quote(Sniffer.fieldSeparator)
 
     def apply(epoch: String, macAddress: String, signal: String): Try[ClientPacket] =

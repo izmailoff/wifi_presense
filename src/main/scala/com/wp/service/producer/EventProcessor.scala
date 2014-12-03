@@ -21,6 +21,7 @@ class EventProcessor extends Actor with AkkaLoggingHelper {
     val clazz = Class.forName(Consumer.consumerClass).asInstanceOf[Class[_ <: EventConsumer]]
     //clazz.newInstance()
     //consumer = clazz.getConstructor(ActorSystem.getClass).newInstance(globalSystem)
+    //classOf[C].getConstructor(classOf[String]).newInstance("string")
     consumer = clazz.newInstance()
   }
 

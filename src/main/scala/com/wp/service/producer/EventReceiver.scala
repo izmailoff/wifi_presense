@@ -4,7 +4,7 @@ import java.io.InputStream
 
 import akka.actor.{Actor, Props}
 import com.wp.config.GlobalAppConfig.Application.Sniffer
-import com.wp.messages.EventMessages.ClientPacket
+import com.wp.messages.EventMessages.{ClientPacket, ClientPacketHelper}
 import com.wp.utils.logging.AkkaLoggingHelper
 
 import scala.sys.process.{Process, ProcessIO}
@@ -33,7 +33,7 @@ class EventReceiver extends Actor with AkkaLoggingHelper {
 
   private def stdOutHandler: InputStream => Unit =
     stdOut => scala.io.Source.fromInputStream(stdOut).getLines.foreach { line =>
-      ClientPacket(line) match {
+      ClientPacketHelper(line) match {
         case Success(event) => self ! event
         case Failure(err) => warning(err.getMessage)
       }
