@@ -1,7 +1,8 @@
-package com.wp.boot
+package com.wp.service.boot
 
 import akka.actor.{ActorSystem, Props}
 import akka.kernel.Bootable
+import com.wp.service.producer.EventReceiver
 import com.wp.utils.logging.AkkaLoggingHelper
 
 /**

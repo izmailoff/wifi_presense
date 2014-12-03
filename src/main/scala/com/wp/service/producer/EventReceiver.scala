@@ -1,4 +1,4 @@
-package com.wp.boot
+package com.wp.service.producer
 
 import java.io.InputStream
 
@@ -21,7 +21,7 @@ class EventReceiver extends Actor with AkkaLoggingHelper {
 
   import log._
 
-  val eventConsumer =  context.actorOf(Props[EventProcessor])
+  val eventProcessor =  context.actorOf(Props[EventProcessor])
 
   override def preStart(): Unit = {
     info(s"Starting Wi-Fi sniffer with these cmd args: [${Sniffer.cmd.toString}].")
@@ -45,6 +45,6 @@ class EventReceiver extends Actor with AkkaLoggingHelper {
     }
 
   def receive = {
-    case event: ClientPacket => eventConsumer ! event
+    case event: ClientPacket => eventProcessor ! event
   }
 }

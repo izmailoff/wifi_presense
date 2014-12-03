@@ -8,7 +8,7 @@ scalaVersion := "2.10.4"
 
 packageArchetype.akka_application
      
-mainClass in Compile := Some("com.wp.boot.Boot")
+mainClass in Compile := Some("com.wp.service.boot.Boot")
      
 libraryDependencies ++= Seq(
   "com.typesafe.akka" %% "akka-kernel" % "2.4-SNAPSHOT",
