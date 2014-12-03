@@ -1,65 +1,40 @@
 package com.wp.boot
 
-import akka.actor.{Actor, ActorSystem, Props}
+import akka.actor.{ActorSystem, Props}
 import akka.kernel.Bootable
-import com.wp.boot.utils.logging.AkkaLoggingHelper
-import com.wp.config.GlobalAppConfig.Application._
-import scala.sys.process.Process
+import com.wp.utils.logging.AkkaLoggingHelper
 
-case object Start
-
-class HelloActor extends Actor with AkkaLoggingHelper {
-  override val globalSystem = context.system
-
-  import log._
-
-  val worldActor = context.actorOf(Props[WorldActor])
-
-  def receive = {
-    case Start => worldActor ! "Hello"
-    case message: String =>
-      info(s"Received message [$message].")
-  }
-}
-
-class WorldActor extends Actor with AkkaLoggingHelper {
-  override val globalSystem = context.system
-
-  import log._
-
-  def receive = {
-    case message: String => sender() ! (message.toUpperCase + " world!")
-  }
-}
-
+/**
+ * Main class that starts actor system and other actors.
+ */
 class Boot extends Bootable with AkkaLoggingHelper {
+  import log._
+
   val system = ActorSystem("wifi_presense_kernel")
 
   override val globalSystem = system
 
-  import log._
+  val banner =
+    """
+      |__        ___       _____ _   ____
+      |\ \      / (_)     |  ___(_) |  _ \ _ __ ___  ___  ___ _ __  ___  ___
+      | \ \ /\ / /| |_____| |_  | | | |_) | '__/ _ \/ __|/ _ \ '_ \/ __|/ _ \
+      |  \ V  V / | |_____|  _| | | |  __/| | |  __/\__ \  __/ | | \__ \  __/
+      |   \_/\_/  |_|     |_|   |_| |_|   |_|  \___||___/\___|_| |_|___/\___|
+      |
+    """.stripMargin
 
-  lazy val eventConsumer = system.actorOf(Props[HelloActor])
+  info(banner)
 
   def startup = {
-    eventConsumer ! Start
+    system.actorOf(Props[EventReceiver])
   }
 
   def shutdown = {
     system.terminate()
   }
 
-  info(Sniffer.cmd.toString)
-  val pb = Process(Sniffer.cmd)
-
-  import scala.sys.process.ProcessIO
-
-  val pio = new ProcessIO(_ => (),
-    stdout => scala.io.Source.fromInputStream(stdout).getLines.foreach(line => eventConsumer ! line),
-    stderr => scala.io.Source.fromInputStream(stderr).getLines.foreach(line => eventConsumer ! "ERR:" + line))
-  pb.run(pio)
-
-  info("APPLICATION STARTED")
+  info("APPLICATION STARTED!")
 }
 
 

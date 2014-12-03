@@ -1,4 +1,4 @@
-package com.wp.boot.utils.logging
+package com.wp.utils.logging
 
 import akka.actor.ActorSystem
 import akka.event.{Logging, LoggingAdapter}

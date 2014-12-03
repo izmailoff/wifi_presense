@@ -15,7 +15,8 @@ object GlobalAppConfig {
 
     object Sniffer {
       private lazy val snifferConf = config.getConfig("application.sniffer")
-      lazy val cmd: List[String] = snifferConf.getStringList("cmd").toList
+      lazy val cmd = snifferConf.getStringList("cmd").toList
+      lazy val fieldSeparator = snifferConf.getString("fieldSeparator")
     }
 
     object Metrics {
@@ -27,4 +28,3 @@ object GlobalAppConfig {
   }
 
 }
-
