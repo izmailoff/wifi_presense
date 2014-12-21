@@ -9,7 +9,7 @@ import scala.util.{Failure, Try}
 
 object EventMessages {
 
-  //1417578677.739100000	00:26:75:d8:00:68	-34,-37,-34
+  //  1417578677.739100000|00:26:75:d8:00:68|-34,-37,-34
   //frame.time_epoch   wlan.sa   radiotap.dbm_antsignal
   // TODO: more typesafe types for address, etc
 

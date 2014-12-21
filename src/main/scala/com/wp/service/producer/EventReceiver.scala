@@ -24,7 +24,7 @@ class EventReceiver extends Actor with AkkaLoggingHelper {
   val eventProcessor =  context.actorOf(Props[EventProcessor])
 
   override def preStart(): Unit = {
-    info(s"Starting Wi-Fi sniffer with these cmd args: [${Sniffer.cmd.toString}].")
+    info(s"Starting Wi-Fi sniffer with these cmd args: [${Sniffer.cmd.mkString(" ")}].")
     val sniffProcessBuilder = Process(Sniffer.cmd)
     val sniffProcessIOHandler = new ProcessIO(_ => (), stdOutHandler, errOutHandler)
     val sniffProcess = sniffProcessBuilder.run(sniffProcessIOHandler)

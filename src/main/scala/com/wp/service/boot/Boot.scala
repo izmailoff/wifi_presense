@@ -1,17 +1,16 @@
 package com.wp.service.boot
 
 import akka.actor.{ActorSystem, Props}
-import akka.kernel.Bootable
 import com.wp.service.producer.EventReceiver
 import com.wp.utils.logging.AkkaLoggingHelper
 
 /**
  * Main class that starts actor system and other actors.
  */
-class Boot extends Bootable with AkkaLoggingHelper {
+object Boot extends App with AkkaLoggingHelper {
   import log._
 
-  val system = ActorSystem("wifi_presense_kernel")
+  val system = ActorSystem("wifi_presense_system")
 
   override val globalSystem = system
 
@@ -27,13 +26,7 @@ class Boot extends Bootable with AkkaLoggingHelper {
 
   info(banner)
 
-  def startup = {
-    system.actorOf(Props[EventReceiver])
-  }
-
-  def shutdown = {
-    system.terminate()
-  }
+  system.actorOf(Props[EventReceiver])
 
   info("APPLICATION STARTED!")
 }
