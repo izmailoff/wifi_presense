@@ -28,7 +28,7 @@ class EventProcessor extends Actor with AkkaLoggingHelper {
   def receive = {
     case event@ClientPacket(time, addr, signal) =>
       val eventTime = new DateTime(time)
-      info(s"EVENT: [$eventTime] -> [$addr] -> [$signal].")
+      debug(s"EVENT: [$eventTime] -> [$addr] -> [$signal].")
       consumer.process(event)
       // TODO: needs to aggregate events and ship them sowhere: file, DB, REST, socket, etc.
   }
