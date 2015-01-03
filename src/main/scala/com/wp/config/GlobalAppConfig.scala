@@ -27,7 +27,7 @@ object GlobalAppConfig {
 
     object Consumer {
       private lazy val consumerConf = config.getConfig("application.consumer")
-      lazy val consumerClass = consumerConf.getString("implementer") // TODO: maybe this can be a list
+      lazy val consumers = consumerConf.getStringList("implementers").toList
       lazy val submitURL = consumerConf.getString("submitURL")
     }
 

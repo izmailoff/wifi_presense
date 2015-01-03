@@ -51,4 +51,7 @@ object GPIOController {
   val pin16 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_16, "pin16")
   //val pin17 = gpio.provisionDigitalOutputPin(RaspiPin.GPIO_17, "pin17")
   val digitalOutPins: Vector[GpioPinDigitalOutput] = Vector(pin1, pin2, pin3, pin4, pin5, pin6)
+
+  // TODO: add on shutdown restore pin state to off like:
+  // myLed.setShutdownOptions(true, PinState.LOW, PinPullResistance.OFF);
 }
