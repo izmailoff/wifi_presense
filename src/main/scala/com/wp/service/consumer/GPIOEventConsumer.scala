@@ -12,7 +12,7 @@ class GPIOEventConsumer
   //ClientPacket(4299809,74:d0:2b:67:11:66,List(-77))
   val monitoredAddress = "D0:22:BE:7B:F2:09"
   val assignedPin = GPIOController.pin0
-  val absenceIntervalMillis = 30 * 1000
+  val absenceIntervalMillis = 5 * 1000
 
   override def process(event: ClientPacket): Unit = {
     import event._

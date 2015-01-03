@@ -35,13 +35,13 @@ class EventReceiver extends Actor with AkkaLoggingHelper {
     stdOut => scala.io.Source.fromInputStream(stdOut).getLines.foreach { line =>
       ClientPacketHelper(line) match {
         case Success(event) => self ! event
-        case Failure(err) => warning(err.getMessage)
+        case Failure(err) => debug(err.getMessage)
       }
     }
 
   private def errOutHandler: InputStream => Unit =
     stdErr => scala.io.Source.fromInputStream(stdErr).getLines.foreach { line =>
-      error(s"Sniffer produced non-fatal error: [$line].")
+      debug(s"Sniffer produced non-fatal error: [$line].")
     }
 
   def receive = {
