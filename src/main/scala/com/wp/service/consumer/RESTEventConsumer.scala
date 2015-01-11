@@ -1,8 +1,9 @@
 package com.wp.service.consumer
 
 import akka.actor.ActorSystem
-import com.wp.config.GlobalAppConfig.Application._
+import com.wp.config.GlobalAppConfig.Application.Consumers.RestConsumer
 import com.wp.messages.EventMessages.ClientPacket
+import com.wp.service.boot.Boot
 import com.wp.utils.logging.AkkaLoggingHelper
 import spray.client.pipelining._
 import spray.http.{HttpRequest, HttpResponse}
@@ -15,11 +16,8 @@ class RESTEventConsumer extends EventConsumer with AkkaLoggingHelper {
 
   import log._
 
-  implicit val system = ActorSystem() // TODO: use the same one or separate?
-
-  import system.dispatcher
-
-  override val globalSystem = system
+  override implicit val globalSystem = Boot.system
+  import globalSystem.dispatcher
 
   object MyJsonProtocol extends DefaultJsonProtocol {
     implicit val eventFormat = jsonFormat3(ClientPacket)
@@ -28,7 +26,7 @@ class RESTEventConsumer extends EventConsumer with AkkaLoggingHelper {
 
   override def process(event: ClientPacket): Unit = {
     val response: Future[HttpResponse] =
-      pipeline(Post(Consumer.submitURL, event))
+      pipeline(Post(RestConsumer.submitUrl, event))
     response.onSuccess { case response => info(response.toString)} // TODO: check how the status code works here 20x
     response.onFailure { case err => error(err.getMessage)}
   }

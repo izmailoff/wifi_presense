@@ -18,7 +18,7 @@ class EventProcessor extends Actor with AkkaLoggingHelper {
   var consumers: List[EventConsumer] = List()
 
   override def preStart(): Unit = {
-    val classes = Consumer.consumers.map(Class.forName(_).asInstanceOf[Class[_ <: EventConsumer]])
+    val classes = Consumers.consumers.map(Class.forName(_).asInstanceOf[Class[_ <: EventConsumer]])
     consumers = classes.map(_.newInstance())
   }
 
