@@ -47,6 +47,11 @@ object GlobalAppConfig {
         lazy val reconnectDelayMax: FiniteDuration =
           mqqtConsumerConf.getDuration("reconnectDelayMax", TimeUnit.SECONDS) seconds
       }
+
+      object WebSocketConsumer {
+        private lazy val webSocketConsumerConf = config.getConfig("application.consumers.webSocketConsumer")
+        lazy val serverUrl = webSocketConsumerConf.getString("serverUrl")
+      }
     }
 
   }

@@ -14,7 +14,8 @@ libraryDependencies ++= Seq(
   "io.spray" %%  "spray-json" % "1.3.1",
   "com.pi4j" % "pi4j-core" % "0.0.5" % "compile",
   "com.pi4j" % "pi4j-device" % "0.0.5" % "compile",
-  "com.sandinh" % "paho-akka_2.11" % "1.0.1"
+  "com.sandinh" % "paho-akka_2.11" % "1.0.1",
+  "org.java-websocket" % "Java-WebSocket" % "1.3.0"
 )
 
 resolvers ++= Seq(

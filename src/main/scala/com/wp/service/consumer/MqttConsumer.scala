@@ -23,11 +23,6 @@ class MqttConsumer extends EventConsumer {
     broker ! new Publish("wifipresense"/*event.clientAddress*/, toJsonStr(event).getBytes())
   }
 
-  private def toJsonStr(event: ClientPacket): String = {
-    import event._
-    s"""{"t":$curTimeMillis,"a":"$clientAddress","s":${signalStrength.head}}""" // FIXME: signal strength will be fixed
-  }
-
   private def emptyToNull(str: String) =
     if(str == null || str.trim.isEmpty) null
   else str
