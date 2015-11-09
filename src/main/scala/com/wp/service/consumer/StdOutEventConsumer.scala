@@ -1,8 +1,7 @@
 package com.wp.service.consumer
 
-import akka.actor.ActorSystem
 import com.wp.messages.EventMessages.ClientPacket
-import com.wp.utils.logging.AkkaLoggingHelper
+//import com.wp.utils.logging.AkkaLoggingHelper
 
 class StdOutEventConsumer //(override val globalSystem: ActorSystem)
   extends EventConsumer {  //(globalSystem)

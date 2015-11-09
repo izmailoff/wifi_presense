@@ -1,6 +1,5 @@
 package com.wp.service.consumer
 
-import akka.actor.ActorSystem
 import com.wp.messages.EventMessages.ClientPacket
 
 /**
