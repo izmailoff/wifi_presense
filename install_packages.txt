@@ -1,0 +1,20 @@
+    yum install net-tools java wireshark vim tree 
+
+
+rpi-update
+
+
+aircrack-ng
+
+
+
+airmon-ng check wlan0
+
+
+
+airmon-ng start wlan0
+
+
+ifconfig mon0 [up] ???
+
+
